@@ -23,16 +23,16 @@ const InputTodo = () => {
 
   return (
     <>
-      <h1 className='text-center my-5'>Input Todo</h1>
+      <h1 className='text-center my-5'>Todo App by Francis</h1>
       <form className='d-flex' onSubmit={onSubmitForm}>
         <input
           type='test'
-          placeholder='add todo'
+          placeholder='Add Todo'
           className='form-control'
           value={description}
           onChange={(event) => setDescription(event.target.value)}
         />
-        <button className='btn btn-success'>Add</button>
+        <button className='btn btn-primary'>Add</button>
       </form>
     </>
   );

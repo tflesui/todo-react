@@ -23,7 +23,7 @@ const EditTodo = ({ todo }) => {
     <div>
       <button
         type='button'
-        class='btn btn-secondary'
+        class='btn btn-warning'
         data-toggle='modal'
         data-target={`#id${todo.todo_id}`}
       >
@@ -61,7 +61,7 @@ const EditTodo = ({ todo }) => {
             <div class='modal-footer'>
               <button
                 type='button'
-                class='btn btn-secondary'
+                class='btn btn-warning'
                 data-dismiss='modal'
                 onClick={() => editText(todo.todo_id)}
               >
