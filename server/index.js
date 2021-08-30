@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const path = require('path');
 const client = require('./db.js');
 client.connect();
 
@@ -8,7 +9,14 @@ client.connect();
 app.use(cors());
 app.use(express.json());  //allows access to req.body
 
+app.use(express.static(path.join(__dirname, 'build')));
+
 //ROUTES
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
 
 //get all todos
 app.get('/todos', async (req, res) => {
