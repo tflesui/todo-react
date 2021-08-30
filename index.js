@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const cors = require('cors');
 const path = require('path');
+const PORT = process.env.PORT || 5000;
 const client = require('./db');
 client.connect();
 
@@ -102,6 +103,6 @@ app.delete('/todos/:id', async (req, res) => {
   } 
 })
 
-app.listen(5000, () => {
-  console.log('Server listening on PORT 5000');
+app.listen(PORT, () => {
+  console.log('Server listening on PORT ', PORT);
 });
