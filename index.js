@@ -3,19 +3,19 @@ const app = express();
 const cors = require('cors');
 const path = require('path');
 const PORT = process.env.PORT || 5000;
-const client = require('./db');
+const client = require('db');
 client.connect();
 
 // middleware
 app.use(cors());
 app.use(express.json());  //allows access to req.body
 
-app.use(express.static(path.join(__dirname, './build')));
+app.use(express.static(path.join(__dirname, 'build')));
 
 //ROUTES
 
 app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, './build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
 
