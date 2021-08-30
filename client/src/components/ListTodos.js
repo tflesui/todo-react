@@ -19,11 +19,16 @@ const ListTodos = () => {
 
   // Get Todos Function
   const getTodos = async () => {
-    const response = await fetch('/todos');
-
-    const todosArray = await response.json();
-
-    setTodos(todosArray);
+    try {
+      
+      const response = await fetch('/todos');
+      
+      const todosArray = await response.json();
+      
+      setTodos(todosArray);
+    } catch (err) {
+      console.error(err.message)
+    }
   };
 
   // Grab data with useEffect
@@ -31,7 +36,6 @@ const ListTodos = () => {
     getTodos();
   }, []);
 
-  console.log(todos);
   return (
     <>
       <table className='table mt-5'>
