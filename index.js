@@ -20,7 +20,7 @@ app.get('*', (req, res) => {
 
 
 //get all todos
-app.get('/todos', async (req, res) => {
+app.get('/', async (req, res) => {
   try {
     const allTodos = await client.query(`
       SELECT *
