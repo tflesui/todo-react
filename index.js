@@ -28,7 +28,7 @@ app.get('/todos', async (req, res) => {
       ORDER BY todo_id ASC
     `);
 
-    res.json(allTodos.rows);
+    res.send(allTodos.rows);
   } catch (err) {
     console.error(err.message);
   }
