@@ -14,6 +14,10 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 //ROUTES
 
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
+
 
 
 //get all todos
@@ -99,10 +103,6 @@ app.delete('/todos/:id', async (req, res) => {
     console.error(err.message);
   } 
 })
-
-app.get('/*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
 
 app.listen(PORT, () => {
   console.log('Server listening on PORT ', PORT);
