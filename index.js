@@ -14,18 +14,15 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 //ROUTES
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
-});
 
 
 //get all todos
 app.get('/todos', async (req, res) => {
   try {
     const allTodos = await client.query(`
-      SELECT *
-      FROM todo
-      ORDER BY todo_id ASC
+    SELECT *
+    FROM todo
+    ORDER BY todo_id ASC
     `);
 
     res.send(allTodos.rows);
@@ -38,31 +35,31 @@ app.get('/todos', async (req, res) => {
 app.get('/todos/:id', async (req, res) => {
   try {
     const { id } = req.params;
-
+    
     const todo = await client.query(`
-      SELECT *
-      FROM todo
+    SELECT *
+    FROM todo
       WHERE todo_id=($1)
-    `,[id])
-
-    res.json(todo.rows[0]);
-  } catch (err) {
-    console.error(err.message);
-  }
-})
-
-//create a todo
-
-app.post('/todos', async (req, res) => {
-  try {
-    const { description } = req.body;    
-
+      `,[id])
+      
+      res.json(todo.rows[0]);
+    } catch (err) {
+      console.error(err.message);
+    }
+  })
+  
+  //create a todo
+  
+  app.post('/todos', async (req, res) => {
+    try {
+      const { description } = req.body;    
+      
     const newTodo = await client.query(`
-      INSERT INTO todo (description)
-      VALUES ($1)
-      RETURNING *
+    INSERT INTO todo (description)
+    VALUES ($1)
+    RETURNING *
     `,[description]);
-
+    
     res.json(newTodo.rows[0]);
   } catch (err) {
     console.error(err.message)
@@ -76,11 +73,11 @@ app.put('/todos/:id', async (req, res) => {
     const { id } = req.params;
     const { description } = req.body;
     const updateTodo = await client.query(`
-      UPDATE todo
-      SET description=$1
-      WHERE todo_id=$2
+    UPDATE todo
+    SET description=$1
+    WHERE todo_id=$2
     `,[description, id]);
-
+    
     res.json('Todo updated!')
   } catch (err) {
     console.error(err.message);
@@ -93,15 +90,19 @@ app.delete('/todos/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const deleteTodo = await client.query(`
-      DELETE FROM todo
-      WHERE todo_id=$1
+    DELETE FROM todo
+    WHERE todo_id=$1
     `, [id]);
-
+    
     res.json('Todo deleted!');
   } catch (err) {
     console.error(err.message);
   } 
 })
+
+app.get('/*', (req, res) => {
+  res.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
 app.listen(PORT, () => {
   console.log('Server listening on PORT ', PORT);
