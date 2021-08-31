@@ -22,8 +22,10 @@ const ListTodos = () => {
     try {
       
       const response = await fetch('/todos');
+      console.log('response: ', response);
       
       const todosArray = await response.json();
+      console.log('todos: ', todosArray);
       
       setTodos(todosArray);
     } catch (err) {
