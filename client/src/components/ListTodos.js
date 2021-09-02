@@ -7,7 +7,7 @@ const ListTodos = () => {
   // Delete Todos Function
   const deleteTodo = async (id) => {
     try {
-      const response = await fetch(`http://localhost:5000/todos/${id}`, {
+      const response = await fetch(`/todos/${id}`, {
         method: 'DELETE',
       });
 
@@ -19,11 +19,18 @@ const ListTodos = () => {
 
   // Get Todos Function
   const getTodos = async () => {
-    const response = await fetch('http://localhost:5000/todos');
-
-    const todosArray = await response.json();
-
-    setTodos(todosArray);
+    try {
+      
+      const response = await fetch('/todos');
+      console.log('response: ', response);
+      
+      const todosArray = await response.json();
+      console.log('todos: ', todosArray);
+      
+      setTodos(todosArray);
+    } catch (err) {
+      console.error(err.message)
+    }
   };
 
   // Grab data with useEffect
@@ -31,9 +38,8 @@ const ListTodos = () => {
     getTodos();
   }, []);
 
-  console.log(todos);
   return (
-    <>
+    <div>
       <table className='table mt-5'>
         <thead>
           <tr>
@@ -43,7 +49,6 @@ const ListTodos = () => {
           </tr>
         </thead>
         <tbody>
-
           {todos.map((todo) => (
             <tr key={todo.todo_id}>
               <td>{todo.description}</td>
@@ -62,7 +67,7 @@ const ListTodos = () => {
           ))}
         </tbody>
       </table>
-    </>
+    </div>
   );
 };
 
